@@ -66,6 +66,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.room:room-common:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
@@ -81,4 +83,12 @@ dependencies {
 
     // hilt and compose navigation
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+    //retrofit
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
 }

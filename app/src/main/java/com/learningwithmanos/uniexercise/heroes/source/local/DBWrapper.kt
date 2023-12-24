@@ -11,7 +11,7 @@ interface DBWrapper {
     fun getHeroes(): Flow<List<Hero>>
 }
 
-class DummyDBWrapper @Inject constructor() : DBWrapper {
+class DBWrapperImpl @Inject constructor() : DBWrapper {
     override fun isHeroDataStored(): Flow<Boolean> {
         return flowOf(false)
     }

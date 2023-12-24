@@ -15,7 +15,7 @@ interface HeroRemoteSource {
 }
 
 class HeroRemoteSourceImpl @Inject constructor(
-    private val restFrameworkWrapper: DummyRestFrameworkWrapper,
+    private val restFrameworkWrapper: RestFrameworkWrapper,
 ): HeroRemoteSource {
 
     override suspend fun getHeroes(): List<Hero> {
