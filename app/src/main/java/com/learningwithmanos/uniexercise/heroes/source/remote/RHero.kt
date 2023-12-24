@@ -1,6 +1,6 @@
-package com.learningwithmanos.uniexercise.heroes.data
+package com.learningwithmanos.uniexercise.heroes.source.remote
 
-data class Hero(
+data class RHero(
     val id: Int,
     val name: String,
     val availableComics: Int,

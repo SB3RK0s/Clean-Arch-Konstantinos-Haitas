@@ -12,7 +12,7 @@ class HeroRemoteSourceImplTest {
 
     private lateinit var heroRemoteSourceImpl: HeroRemoteSourceImpl
 
-    private val restFrameworkWrapperMock: DummyRestFrameworkWrapper = mock()
+    private val restFrameworkWrapperMock: RestFrameworkWrapper = mock()
 
     @Before
     fun setUp() {

@@ -1,6 +1,7 @@
 package com.learningwithmanos.uniexercise.heroes.usecase
 
 import com.learningwithmanos.uniexercise.heroes.repo.HeroRepository
+import com.learningwithmanos.uniexercise.heroes.usecase.fetch.GetHeroesUCImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

@@ -1,7 +1,5 @@
 package com.learningwithmanos.uniexercise.heroes.source.remote.api
 
-import com.google.gson.annotations.SerializedName
-
 data class MarvelCharactersResponse(
     val code: Int,
     val status: String,

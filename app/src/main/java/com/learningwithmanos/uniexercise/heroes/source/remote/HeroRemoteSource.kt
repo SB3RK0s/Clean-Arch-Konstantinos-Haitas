@@ -1,6 +1,7 @@
 package com.learningwithmanos.uniexercise.heroes.source.remote
 
 import com.learningwithmanos.uniexercise.heroes.data.Hero
+import com.learningwithmanos.uniexercise.heroes.data.toDomainModel
 import javax.inject.Inject
 
 /**
@@ -19,7 +20,7 @@ class HeroRemoteSourceImpl @Inject constructor(
 ): HeroRemoteSource {
 
     override suspend fun getHeroes(): List<Hero> {
-        return restFrameworkWrapper.getHeroes()
+        return restFrameworkWrapper.getHeroes().map { it.toDomainModel() }
     }
 
 }

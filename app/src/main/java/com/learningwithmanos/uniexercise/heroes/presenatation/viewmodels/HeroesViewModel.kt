@@ -1,12 +1,13 @@
-package com.learningwithmanos.uniexercise.heroes.ui
+package com.learningwithmanos.uniexercise.heroes.presenatation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.learningwithmanos.uniexercise.heroes.data.Hero
 import com.learningwithmanos.uniexercise.heroes.data.Tab
-import com.learningwithmanos.uniexercise.heroes.usecase.GetHeroesSortedByHighestNumberOfComicsUC
-import com.learningwithmanos.uniexercise.heroes.usecase.GetHeroesSortedByNameUC
-import com.learningwithmanos.uniexercise.heroes.usecase.GetHeroesUC
+import com.learningwithmanos.uniexercise.heroes.presenatation.ui.state.HeroesUiState
+import com.learningwithmanos.uniexercise.heroes.usecase.fetch.GetHeroesSortedByHighestNumberOfComicsUC
+import com.learningwithmanos.uniexercise.heroes.usecase.fetch.GetHeroesSortedByNameUC
+import com.learningwithmanos.uniexercise.heroes.usecase.fetch.GetHeroesUC
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +22,7 @@ import javax.inject.Inject
 class HeroesViewModel @Inject constructor(
     private val getHeroesUC: GetHeroesUC,
     private val getHeroesSortedByNameUC: GetHeroesSortedByNameUC,
-    private val getHeroesSortedByHighestNumberOfComicsUC: GetHeroesSortedByHighestNumberOfComicsUC
+    private val getHeroesSortedByHighestNumberOfComicsUC: GetHeroesSortedByHighestNumberOfComicsUC,
 ) : ViewModel() {
 
     private var _selectedTabStateFlow: MutableStateFlow<Tab> = MutableStateFlow(Tab.Heroes)
@@ -33,19 +34,22 @@ class HeroesViewModel @Inject constructor(
     )
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val heroesStateFlow: StateFlow<List<HeroTileModel>> = selectedTabStateFlow.flatMapLatest { selectedTab ->
+    val heroesStateFlow: StateFlow<HeroesUiState> = selectedTabStateFlow.flatMapLatest { selectedTab ->
         when (selectedTab) {
-            Tab.Heroes -> getHeroesUC.execute().map { list -> list.map { it.mapHeroToHeroTileModel() }}
+            Tab.Heroes -> getHeroesUC.execute()
             Tab.SortedByNameHeroes -> getHeroesSortedByNameUC.execute()
-                .map { list -> list.map { it.mapHeroToHeroTileModel() }}
-
             Tab.SortedByComicHeroes -> getHeroesSortedByHighestNumberOfComicsUC.execute()
-                .map { list -> list.map { it.mapHeroToHeroTileModel() }}
+        }.map { result ->
+            if (result.isSuccess) {
+                HeroesUiState(heroes = result.getOrNull()?.map { it.mapHeroToHeroTileModel() } ?: emptyList())
+            } else {
+                HeroesUiState(errorMessage = "Press the settings button to enter the API keys\n${result.exceptionOrNull()?.message}")
+            }
         }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(),
-        initialValue = listOf()
+        initialValue = HeroesUiState()
     )
 
     /**
@@ -76,7 +80,7 @@ data class HeroTileModel(
 
 fun Hero.mapHeroToHeroTileModel(): HeroTileModel {
     return HeroTileModel(
-        title = "$name, comics - $availableComics",
+        title = "$name\n$availableComics Comics Available",
         imageUrl = imageUrl
     )
 }

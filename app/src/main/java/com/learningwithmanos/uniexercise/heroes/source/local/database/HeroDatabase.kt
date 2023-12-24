@@ -1,10 +1,11 @@
-package com.learningwithmanos.uniexercise.heroes.data
+package com.learningwithmanos.uniexercise.heroes.source.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.learningwithmanos.uniexercise.heroes.source.local.LHero
 
 @Database(
-    entities = [Hero::class],
+    entities = [LHero::class],
     version = 1,
     exportSchema = false,
 )

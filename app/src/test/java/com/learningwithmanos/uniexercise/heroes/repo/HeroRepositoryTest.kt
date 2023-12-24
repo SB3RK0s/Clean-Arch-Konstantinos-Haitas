@@ -25,11 +25,13 @@ class HeroRepositoryImplTest {
 
     private val dummyHeroData = listOf(
         Hero(
+            id = 1,
             name = "A-Bomb (HAS)",
             availableComics = 4,
             imageUrl = "http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg",
         ),
         Hero(
+            id = 2,
             name = "Absorbing Man",
             availableComics = 99,
             imageUrl = "http://i.annihil.us/u/prod/marvel/i/mg/1/b0/5269678709fb7.jpg",

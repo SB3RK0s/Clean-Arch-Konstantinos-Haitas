@@ -1,26 +1,33 @@
 package com.learningwithmanos.uniexercise.heroes.source.local
 
-import com.learningwithmanos.uniexercise.heroes.data.Hero
+import com.learningwithmanos.uniexercise.heroes.source.local.database.HeroDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 interface DBWrapper {
-    fun isHeroDataStored(): Flow<Boolean>
-    fun storeHeroes(heroes: List<Hero>)
-    fun getHeroes(): Flow<List<Hero>>
+    suspend fun isHeroDataStored(): Flow<Boolean>
+    suspend fun storeHeroes(heroes: List<LHero>)
+    fun getHeroes(): Flow<List<LHero>>
+    suspend fun deleteAllHeroes()
 }
 
-class DBWrapperImpl @Inject constructor() : DBWrapper {
-    override fun isHeroDataStored(): Flow<Boolean> {
-        return flowOf(false)
+class DBWrapperImpl @Inject constructor(
+    private val heroDao: HeroDao
+) : DBWrapper {
+    override suspend fun isHeroDataStored(): Flow<Boolean> {
+        return flowOf(heroDao.countHeroes() > 0)
     }
 
-    override fun storeHeroes(heroes: List<Hero>) {
-        // do nothing
+    override suspend fun storeHeroes(heroes: List<LHero>) {
+        heroDao.insertHeroes(heroes)
     }
 
-    override fun getHeroes(): Flow<List<Hero>> {
-        return flowOf(listOf())
+    override fun getHeroes(): Flow<List<LHero>> {
+        return heroDao.getHeroes()
+    }
+
+    override suspend fun deleteAllHeroes() {
+        heroDao.deleteAllHeroes()
     }
 }

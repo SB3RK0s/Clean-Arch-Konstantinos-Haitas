@@ -1,9 +1,10 @@
 package com.learningwithmanos.uniexercise.heroes.ui
 
 import com.learningwithmanos.uniexercise.heroes.data.Tab
-import com.learningwithmanos.uniexercise.heroes.usecase.GetHeroesSortedByHighestNumberOfComicsUC
-import com.learningwithmanos.uniexercise.heroes.usecase.GetHeroesSortedByNameUC
-import com.learningwithmanos.uniexercise.heroes.usecase.GetHeroesUC
+import com.learningwithmanos.uniexercise.heroes.presenatation.viewmodels.HeroesViewModel
+import com.learningwithmanos.uniexercise.heroes.usecase.fetch.GetHeroesSortedByHighestNumberOfComicsUC
+import com.learningwithmanos.uniexercise.heroes.usecase.fetch.GetHeroesSortedByNameUC
+import com.learningwithmanos.uniexercise.heroes.usecase.fetch.GetHeroesUC
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
