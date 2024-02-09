@@ -49,4 +49,13 @@ class HeroLocalSourceImplTest {
         verify(dbWrapperMock).getHeroes()
     }
 
+    @Test
+    fun `when invoking deleteAllHeroes verify results and interactions`() = runTest{
+        // when
+        heroLocalSourceImpl.deleteAllHeroes()
+
+        // then
+        verify(dbWrapperMock).deleteAllHeroes()
+    }
+
 }

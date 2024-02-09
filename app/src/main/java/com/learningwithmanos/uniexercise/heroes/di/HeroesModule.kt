@@ -191,6 +191,7 @@ object ApiKeysModule {
     }
 
     @Provides
+    @Named("AreApiKeysFilledProvider")
     fun provideAreApiKeysFilled(
         @Named("PublicKeyProvider") publicKeyProvider: () -> String,
         @Named("PrivateKeyProvider") privateKeyProvider: () -> String
